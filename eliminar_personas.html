@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexión a API</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="./api_principal.html">Conexión API</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="./agregar_personas.html">Agregar Personas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./eliminar_personas.html">Borrar Personas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./modificar_personas.html">Modificar Personas</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <form name="formulario-eliminar" onsubmit="eliminar(); return false;">
+        <div class="mb-3">
+          <label for="dni" class="form-label">DNI:</label>
+          <input type="text" class="form-control" id="dni" name="dni" required>
+        </div>
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+      </form>
+      
+      <script>
+        function eliminar() {
+          const formulario_eliminar = document.forms["formulario-eliminar"];
+          const dni = formulario_eliminar.elements["dni"].value;
+          const url = `https://bbdd.lhdevsolutions.net:50500/api/personas/${dni}`;
+          fetch(url, {
+            method: "DELETE"
+          })
+          .then(response => response.json())
+          .then(json => console.log(json))
+          .catch(err => console.log(err));
+        }
+      </script>
+</body>
+</html>
